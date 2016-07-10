@@ -28,6 +28,7 @@ void print_table_header()
 void print_screen()
 {
  	char help [120];
+	newtDrawRootText(0, 0, "Temprature Coefficient Test System");
 	sprintf(help,"%s",HelpTest.c_str());
 	newtPushHelpLine(help);
 	print_time();
@@ -63,14 +64,11 @@ int main(void) {
 	Temprature.push_back(999999);
 	newtInit();
 	newtCls();
-	newtDrawRootText(0, 0, "Temprature Coefficient Test System");
 	lower_right= "TEST STRING";
 	HelpTest = "I AM NO HELP AT ALL";
 	print_screen();
 	newtWaitForKey();
 	lower_right = "second string";
-	//newtPopHelpLine();
-	
 	print_screen();
 	sleep(1);
 	newtFinished();
