@@ -17,6 +17,11 @@ std::string lower_right;
 std::string HelpTest;
 bool running;
 std::vector <float> Temprature;
+std::vector <float> reading; //use new to create objects
+void take_measurement()
+{
+reading.push_back(99);
+}
 
 void print_table_header()
 {
@@ -25,6 +30,18 @@ void print_table_header()
 	newtDrawRootText(1, 2, TEXT);
 
 }
+
+void print_table() 
+{
+char text [120];
+take_measurement();
+	for (int i=0;i<10;i++)
+	{
+		sprintf(text,"position %i\t\t %f",i,reading.back());
+		newtDrawRootText(1,3+i,text);
+	}
+}
+
 void print_screen()
 {
  	char help [120];
@@ -33,6 +50,7 @@ void print_screen()
 	newtPushHelpLine(help);
 	print_time();
 	print_table_header();
+	print_table();
 	print_lower_right();
 	newtRefresh();
 }
