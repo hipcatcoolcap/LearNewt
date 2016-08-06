@@ -14,20 +14,22 @@ void print_screen();
 void print_table_header();
 
 std::string lower_right;
+int position=30;
 std::string HelpTest;
 std::vector <float> Temprature;
-std::vector <float> reading; //use new to create objects
-
+//std::vector <float>  reading;
+float reading [30][30];
 bool running;
-int position=30;
-
+int j;
 
 void take_measurement()
 {
 for (int i=0;i<position;i++)
 {
-reading.push_back(rand());
-}}
+reading[i][j]=rand();
+}
+
+}
 
 void print_table_header()
 {
@@ -41,12 +43,12 @@ void print_table()
 {
 char text [120];
 
+		take_measurement();
 	print_table_header();
 for (int i=0;i<position;i++)
 	
 	{
-		take_measurement();
-		sprintf(text,"position %i\t\t %f\t\t %f\t\t %f",i,reading[reading.size()-1],reading.back(),((reading[reading.size()-1]-reading.back())/reading.back())*100);
+		sprintf(text,"%2i\t %11.1f\t %11.1f\t %11.1f",i,reading[i][j-1],reading[i][j],reading[i][j-1]- reading[i][j]);
 
 		newtDrawRootText(1,3+i,text);
 	}
@@ -69,7 +71,7 @@ void print_lower_right()
 	sprintf(TEXT,"%s",lower_right.c_str());
 	newtDrawRootText(-1*lower_right.size(), -2, TEXT);
 	newtRefresh();
-	newtWaitForKey();
+	//newtWaitForKey();
 }
 
 void print_time()
@@ -86,21 +88,31 @@ void print_time()
 	sprintf(TEXT,"%s",asctime(localtime(&t)));
 	newtDrawRootText(-20, 1, TEXT);
 	newtRefresh();
-	newtWaitForKey();
+	//newtWaitForKey();
 }
 
 
 int main(void) {
+
+	
+	char text[20];
 	Temprature.push_back(999999);
 	newtInit();
 	newtCls();
 	lower_right= "TEST STRING";
 	HelpTest = "I AM NO HELP AT ALL";
-	print_screen();
 
-	newtWaitForKey();
-	lower_right = "second string";
+	for (j=0;j<30;j++)
+{
+	sprintf(text, "Percent finished %2.1f",(float)j/30*100);
+	lower_right = text;
 	print_screen();
 	sleep(1);
+}
+	sprintf(text, "TEST COMPLETE");
+	newtWaitForKey();
+	lower_right = text;
+	print_screen();
+	newtWaitForKey();
 	newtFinished();
 }
