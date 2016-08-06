@@ -15,13 +15,19 @@ void print_table_header();
 
 std::string lower_right;
 std::string HelpTest;
-bool running;
 std::vector <float> Temprature;
 std::vector <float> reading; //use new to create objects
+
+bool running;
+int position=30;
+
+
 void take_measurement()
 {
-reading.push_back(99);
-}
+for (int i=0;i<position;i++)
+{
+reading.push_back(rand());
+}}
 
 void print_table_header()
 {
@@ -34,10 +40,14 @@ void print_table_header()
 void print_table() 
 {
 char text [120];
-take_measurement();
-	for (int i=0;i<10;i++)
+
+	print_table_header();
+for (int i=0;i<position;i++)
+	
 	{
-		sprintf(text,"position %i\t\t %f",i,reading.back());
+		take_measurement();
+		sprintf(text,"position %i\t\t %f\t\t %f\t\t %f",i,reading[reading.size()-1],reading.back(),((reading[reading.size()-1]-reading.back())/reading.back())*100);
+
 		newtDrawRootText(1,3+i,text);
 	}
 }
@@ -45,11 +55,10 @@ take_measurement();
 void print_screen()
 {
  	char help [120];
-	newtDrawRootText(0, 0, "Temprature Coefficient Test System");
+	newtDrawRootText(0, 0, "measurement output screen");
 	sprintf(help,"%s",HelpTest.c_str());
 	newtPushHelpLine(help);
 	print_time();
-	print_table_header();
 	print_table();
 	print_lower_right();
 	newtRefresh();
@@ -69,6 +78,7 @@ void print_time()
 	clock_t t;
 	t = clock();
 	time(&t);
+	srand(time(NULL));
 	char TEXT [120];
 	sprintf(TEXT,"Temprature is %f",Temprature.back());
 	newtDrawRootText(1, 1, TEXT);
@@ -78,6 +88,8 @@ void print_time()
 	newtRefresh();
 	newtWaitForKey();
 }
+
+
 int main(void) {
 	Temprature.push_back(999999);
 	newtInit();
@@ -85,6 +97,7 @@ int main(void) {
 	lower_right= "TEST STRING";
 	HelpTest = "I AM NO HELP AT ALL";
 	print_screen();
+
 	newtWaitForKey();
 	lower_right = "second string";
 	print_screen();
