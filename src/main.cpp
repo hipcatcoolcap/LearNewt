@@ -18,15 +18,19 @@ int position=30;
 std::string HelpTest;
 std::vector <float> Temprature;
 //std::vector <float>  reading;
-float reading [30][30];
+float reading [30][30];//position by testpoints
+float average [30]; //rolling average
 bool running;
-int j;
+int j;//number of test points
+
+std::string TESTPLAN="TPR: 99999";
 
 void take_measurement()
 {
 for (int i=0;i<position;i++)
 {
 reading[i][j]=rand();
+average [i]=(reading [i][j]+average[i]*j)/(j+1);
 }
 
 }
@@ -34,7 +38,7 @@ reading[i][j]=rand();
 void print_table_header()
 {
 	char TEXT [120];
-	sprintf(TEXT,"position number\t previous reading\t current reading\t delta\t std");
+	sprintf(TEXT,"SN\t previous\t current\t delta   \t average");
 	newtDrawRootText(1, 2, TEXT);
 
 }
@@ -48,7 +52,7 @@ char text [120];
 for (int i=0;i<position;i++)
 	
 	{
-		sprintf(text,"%2i\t %11.1f\t %11.1f\t %11.1f",i,reading[i][j-1],reading[i][j],reading[i][j-1]- reading[i][j]);
+		sprintf(text,"%2i\t %11.1f\t %11.1f\t %11.1f\t %11.1f",i,reading[i][j-1],reading[i][j],reading[i][j-1]- reading[i][j],average[i]);
 
 		newtDrawRootText(1,3+i,text);
 	}
@@ -100,7 +104,8 @@ int main(void) {
 	newtInit();
 	newtCls();
 	lower_right= "TEST STRING";
-	HelpTest = "I AM NO HELP AT ALL";
+	//HelpTest = "I AM NO HELP AT ALL";
+	HelpTest = TESTPLAN;
 
 	for (j=0;j<30;j++)
 {
@@ -110,7 +115,6 @@ int main(void) {
 	sleep(1);
 }
 	sprintf(text, "TEST COMPLETE");
-	newtWaitForKey();
 	lower_right = text;
 	print_screen();
 	newtWaitForKey();
