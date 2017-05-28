@@ -45,12 +45,11 @@ void print_table_header()
 
 void print_table() 
 {
-char text [120];
+	char text [120];
 
-		take_measurement();
+	take_measurement();
 	print_table_header();
-for (int i=0;i<position;i++)
-	
+	for (int i=0;i<position;i++)
 	{
 		sprintf(text,"%2i\t %11.1f\t %11.1f\t %11.1f\t %11.1f",i,reading[i][j-1],reading[i][j],reading[i][j-1]- reading[i][j],average[i]);
 
@@ -79,7 +78,6 @@ void print_lower_right()
 }
 
 void print_time()
-
 {
 	clock_t t;
 	t = clock();
@@ -88,17 +86,14 @@ void print_time()
 	char TEXT [120];
 	sprintf(TEXT,"Temprature is %f",Temprature.back());
 	newtDrawRootText(1, 1, TEXT);
-
 	sprintf(TEXT,"%s",asctime(localtime(&t)));
 	newtDrawRootText(-20, 1, TEXT);
 	newtRefresh();
 	//newtWaitForKey();
 }
 
-
-int main(void) {
-
-	
+int main(void)
+ {
 	char text[20];
 	Temprature.push_back(999999);
 	newtInit();
@@ -106,14 +101,13 @@ int main(void) {
 	lower_right= "TEST STRING";
 	//HelpTest = "I AM NO HELP AT ALL";
 	HelpTest = TESTPLAN;
-
 	for (j=0;j<30;j++)
-{
-	sprintf(text, "Percent finished %2.1f",(float)j/30*100);
-	lower_right = text;
-	print_screen();
-	sleep(1);
-}
+	{
+		sprintf(text, "Percent finished %2.1f",(float)j/30*100);
+		lower_right = text;
+		print_screen();
+		sleep(1);
+	}	
 	sprintf(text, "TEST COMPLETE");
 	lower_right = text;
 	print_screen();
